@@ -1,0 +1,20 @@
+name: Check
+
+on: push
+
+jobs:
+  package-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-node
+      - name: Build package
+        run: npm run package
+      - name: Check diff /dist directory
+        run: |
+          if [ "$(git diff --ignore-space-at-eol dist/ | wc -l)" -gt "0" ]; then
+            echo "Detected uncommitted changes after build.  See status below:"
+            git --no-pager diff HEAD dist
+            git status
+            exit 1
+          fi

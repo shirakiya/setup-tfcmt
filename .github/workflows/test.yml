@@ -1,0 +1,40 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup-node
+      - name: Run unit tests
+        run: npm run test
+
+  action-test-linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: ["", "v4.2.0"]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          version: ${{ matrix.version }}
+      - name: Check tfcmt command
+        run: |
+          which tfcmt
+          tfcmt --version
+
+  action-test-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+      - name: Check tfcmt command
+        run: |
+          where.exe tfcmt
+          tfcmt --version

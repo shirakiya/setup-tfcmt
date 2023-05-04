@@ -1,0 +1,14 @@
+name: setup-tfcmt-action
+author: shirakiya
+description: Set up specific version of tfcmt in your GitHub Actions workflow.
+inputs:
+  version:
+    description: "The path of configuration file for this action (default: latest)"
+    required: false
+    default: ""
+runs:
+  using: node16
+  main: dist/setup/index.js
+branding:
+  icon: terminal
+  color: purple
