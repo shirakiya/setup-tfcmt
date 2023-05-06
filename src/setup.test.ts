@@ -1,11 +1,7 @@
-import { rest } from "msw"
-import { setupServer } from "msw/node"
-
 import {
   mapPlatform,
   mapArch,
   getBuildURL,
-  getAvailableReleaseVersions,
   specifyReleaseVersion,
 } from "./setup"
 
@@ -71,78 +67,19 @@ describe("mapArch", () => {
   })
 })
 
-describe("getAvailableReleaseVersions", () => {
-  const server = setupServer(
-    rest.get("http://dummy-domain.com/dummy_0", (_, res, ctx) => {
-      return res(
-        ctx.json([
-          { tag_name: "v4.3.0" },
-          { tag_name: "v4.2.0" },
-          { tag_name: "v4.1.0" },
-        ]),
-      )
-    }),
-    rest.get("http://dummy-domain.com/dummy_1", (_, res, ctx) => {
-      return res(ctx.status(500), ctx.json({}))
-    }),
-  )
-
-  beforeAll(() => {
-    server.listen()
-  })
-
-  afterAll(() => {
-    server.close()
-  })
-
-  test("can get versions array if it got valid response", async () => {
-    const got = await getAvailableReleaseVersions(
-      "http://dummy-domain.com/dummy_0",
-    )
-    expect(got).toStrictEqual(["v4.3.0", "v4.2.0", "v4.1.0"])
-  })
-
-  test("throw error if it got invalid response", async () => {
-    await expect(
-      getAvailableReleaseVersions("http://dummy-domain.com/dummy_1"),
-    ).rejects.toThrow()
-  })
-})
-
 describe("specifyReleaseVersion", () => {
-  const testURL = "http://dummy-domain.com/dummy"
-  const server = setupServer(
-    rest.get(testURL, (_, res, ctx) => {
-      return res(
-        ctx.json([
-          { tag_name: "v4.3.0" },
-          { tag_name: "v4.2.0" },
-          { tag_name: "v4.1.0" },
-        ]),
-      )
-    }),
-  )
-
-  beforeAll(() => {
-    server.listen()
-  })
-
-  afterAll(() => {
-    server.close()
-  })
-
-  test("select latest one if passed version is empty", async () => {
-    const got = await specifyReleaseVersion("", testURL)
+  test("select latest one if passed version is empty", () => {
+    const got = specifyReleaseVersion("")
     expect(got).toStrictEqual("v4.3.0")
   })
 
-  test("select a matched version if passed version is specified", async () => {
-    const got = await specifyReleaseVersion("v4.2.0", testURL)
+  test("select a matched version if passed version is specified", () => {
+    const got = specifyReleaseVersion("v4.2.0")
     expect(got).toStrictEqual("v4.2.0")
   })
 
-  test("throws error if passed version does not contain in released versions", async () => {
-    await expect(specifyReleaseVersion("v9.9.9", testURL)).rejects.toThrow()
+  test("throws error if passed version does not contain in released versions", () => {
+    expect(() => specifyReleaseVersion("v9.9.9")).toThrow()
   })
 })
 

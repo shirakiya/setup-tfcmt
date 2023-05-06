@@ -1,11 +1,9 @@
 import * as core from "@actions/core"
-import * as httpm from "@actions/http-client"
 import * as tc from "@actions/tool-cache"
 
-export const cmdName = "tfcmt"
+import VERSIONS from "./versions.json"
 
-const releasesURL =
-  "https://api.github.com/repos/suzuki-shunsuke/tfcmt/releases"
+export const CMD_NAME = "tfcmt"
 
 // https://nodejs.org/api/os.html#os_os_platform
 export const mapPlatform = (platform: string): string => {
@@ -36,39 +34,8 @@ export const mapArch = (arch: string): string => {
   return mappings[arch as keyof typeof mappings]
 }
 
-type GitHubReleases = {
-  tag_name: string
-}[]
-
-export const getAvailableReleaseVersions = async (
-  url: string,
-): Promise<string[]> => {
-  const http = new httpm.HttpClient("setup-tfcmt", [], {
-    headers: {
-      // GitHub recommends.
-      // https://docs.github.com/ja/rest/releases/releases?apiVersion=2022-11-28#list-releases
-      Accept: "application/vnd.github+json",
-    },
-  })
-  const res = await http.get(url)
-  const body = await res.readBody()
-
-  if (res.message.statusCode !== 200) {
-    const msg = "failed to get releases from GitHub"
-    core.error(`${msg}: ${body}`)
-    throw new Error(msg)
-  }
-
-  const releases: GitHubReleases = JSON.parse(body)
-
-  return releases.map((r) => r.tag_name)
-}
-
-export const specifyReleaseVersion = async (
-  version: string,
-  url: string = releasesURL,
-): Promise<string> => {
-  const availableReleaseVersions = await getAvailableReleaseVersions(url)
+export const specifyReleaseVersion = (version: string): string => {
+  const availableReleaseVersions = VERSIONS
   core.debug(
     `available release versions: ${availableReleaseVersions.join(", ")}`,
   )
@@ -101,7 +68,7 @@ export const download = async (
   path: string
   url: string
 }> => {
-  const version = await specifyReleaseVersion(inputVersion)
+  const version = specifyReleaseVersion(inputVersion)
   core.debug(
     `the input version [${inputVersion}] identifies the release version as ${version}`,
   )
@@ -124,7 +91,7 @@ export const download = async (
   // ref. https://github.com/actions/toolkit/tree/main/packages/tool-cache#cache
   const cachedPath = await tc.cacheDir(
     pathToExtractedDir,
-    cmdName,
+    CMD_NAME,
     version,
     arch,
   )
