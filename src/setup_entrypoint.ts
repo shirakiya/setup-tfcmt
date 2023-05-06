@@ -3,7 +3,7 @@ import os from "os"
 
 import * as core from "@actions/core"
 
-import { cmdName, download } from "./setup"
+import { CMD_NAME, download } from "./setup"
 
 const run = async (): Promise<{
   path: string
@@ -21,7 +21,7 @@ const run = async (): Promise<{
 
   core.addPath(result.path)
   core.exportVariable("TFCMT_DIR_PATH", result.path)
-  core.exportVariable("TFCMT_CMD_PATH", path.join(result.path, cmdName))
+  core.exportVariable("TFCMT_CMD_PATH", path.join(result.path, CMD_NAME))
 
   return result
 }

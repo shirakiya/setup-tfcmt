@@ -6555,13 +6555,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.download = exports.getBuildURL = exports.specifyReleaseVersion = exports.getAvailableReleaseVersions = exports.mapArch = exports.mapPlatform = exports.cmdName = void 0;
+exports.download = exports.getBuildURL = exports.specifyReleaseVersion = exports.mapArch = exports.mapPlatform = exports.CMD_NAME = void 0;
 const core = __importStar(__nccwpck_require__(2186));
-const httpm = __importStar(__nccwpck_require__(6255));
 const tc = __importStar(__nccwpck_require__(7784));
-exports.cmdName = "tfcmt";
-const releasesURL = "https://api.github.com/repos/suzuki-shunsuke/tfcmt/releases";
+const versions_json_1 = __importDefault(__nccwpck_require__(2751));
+exports.CMD_NAME = "tfcmt";
 // https://nodejs.org/api/os.html#os_os_platform
 const mapPlatform = (platform) => {
     const mappings = {
@@ -6587,27 +6589,8 @@ const mapArch = (arch) => {
     return mappings[arch];
 };
 exports.mapArch = mapArch;
-const getAvailableReleaseVersions = (url) => __awaiter(void 0, void 0, void 0, function* () {
-    const http = new httpm.HttpClient("setup-tfcmt", [], {
-        headers: {
-            // GitHub recommends.
-            // https://docs.github.com/ja/rest/releases/releases?apiVersion=2022-11-28#list-releases
-            Accept: "application/vnd.github+json",
-        },
-    });
-    const res = yield http.get(url);
-    const body = yield res.readBody();
-    if (res.message.statusCode !== 200) {
-        const msg = "failed to get releases from GitHub";
-        core.error(`${msg}: ${body}`);
-        throw new Error(msg);
-    }
-    const releases = JSON.parse(body);
-    return releases.map((r) => r.tag_name);
-});
-exports.getAvailableReleaseVersions = getAvailableReleaseVersions;
-const specifyReleaseVersion = (version, url = releasesURL) => __awaiter(void 0, void 0, void 0, function* () {
-    const availableReleaseVersions = yield (0, exports.getAvailableReleaseVersions)(url);
+const specifyReleaseVersion = (version) => {
+    const availableReleaseVersions = versions_json_1.default;
     core.debug(`available release versions: ${availableReleaseVersions.join(", ")}`);
     // the default version is latest one.
     if (!version) {
@@ -6617,14 +6600,14 @@ const specifyReleaseVersion = (version, url = releasesURL) => __awaiter(void 0, 
         throw new Error("invalid version is passed to setup-tfcmt action");
     }
     return version;
-});
+};
 exports.specifyReleaseVersion = specifyReleaseVersion;
 const getBuildURL = (version, platform, arch) => {
     return `https://github.com/suzuki-shunsuke/tfcmt/releases/download/${version}/tfcmt_${platform}_${arch}.tar.gz`;
 };
 exports.getBuildURL = getBuildURL;
 const download = (inputVersion, osPlatform, osArch) => __awaiter(void 0, void 0, void 0, function* () {
-    const version = yield (0, exports.specifyReleaseVersion)(inputVersion);
+    const version = (0, exports.specifyReleaseVersion)(inputVersion);
     core.debug(`the input version [${inputVersion}] identifies the release version as ${version}`);
     const platform = (0, exports.mapPlatform)(osPlatform);
     const arch = (0, exports.mapArch)(osArch);
@@ -6637,7 +6620,7 @@ const download = (inputVersion, osPlatform, osArch) => __awaiter(void 0, void 0,
     core.debug(`the build archive of tfcmt is extracted to ${pathToExtractedDir}`);
     // NOTE: This cache is available only self-hosted runner.
     // ref. https://github.com/actions/toolkit/tree/main/packages/tool-cache#cache
-    const cachedPath = yield tc.cacheDir(pathToExtractedDir, exports.cmdName, version, arch);
+    const cachedPath = yield tc.cacheDir(pathToExtractedDir, exports.CMD_NAME, version, arch);
     core.debug(`cached tfcmt path is ${cachedPath}`);
     return {
         path: cachedPath,
@@ -6704,7 +6687,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield (0, setup_1.download)(inputVersion, osPlatform, osArch);
     core.addPath(result.path);
     core.exportVariable("TFCMT_DIR_PATH", result.path);
-    core.exportVariable("TFCMT_CMD_PATH", path.join(result.path, setup_1.cmdName));
+    core.exportVariable("TFCMT_CMD_PATH", path.join(result.path, setup_1.CMD_NAME));
     return result;
 });
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -6851,6 +6834,14 @@ module.exports = require("tls");
 
 "use strict";
 module.exports = require("util");
+
+/***/ }),
+
+/***/ 2751:
+/***/ ((module) => {
+
+"use strict";
+module.exports = JSON.parse('["v4.3.0","v4.3.0-1","v4.2.0","v4.2.0-2","v4.2.0-1","v4.1.0","v4.1.0-2","v4.0.1","v4.0.1-0","v4.0.0","v4.0.0-4","v3.4.2","v4.0.0-3","v3.4.1","v3.4.1-0","v4.0.0-2","v3.4.0","v3.4.0-1","v4.0.0-1","v3.3.0","v3.3.0-0","v4.0.0-0","v3.2.5","v3.2.5-0","v3.2.4","v3.2.3","v3.2.2","v3.2.2-0","v3.2.1","v3.2.0"]');
 
 /***/ })
 
