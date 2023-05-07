@@ -1,5 +1,0 @@
-[tagpr]
-	releaseBranch = main
-	versionFile = package.json
-	vPrefix = true
-	release = true
