@@ -40,9 +40,19 @@ export const specifyReleaseVersion = (version: string): string => {
     `available release versions: ${availableReleaseVersions.join(", ")}`,
   )
 
-  // the default version is latest one.
   if (!version) {
-    return availableReleaseVersions[0]
+    // Select latest and no pre-release version as default.
+
+    const latestVersion = availableReleaseVersions.find((v) => {
+      // `-` is included in the version of pre-release.
+      // Ex.) "v4.3.0-1"
+      return !v.includes("-")
+    })
+    if (!latestVersion) {
+      throw new Error("latest version is not found")
+    }
+
+    return latestVersion
   }
 
   if (!availableReleaseVersions.includes(version)) {
