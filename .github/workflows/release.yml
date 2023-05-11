@@ -2,8 +2,8 @@ name: Release
 
 on:
   push:
-    # branches:
-    #   - main
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -20,8 +20,7 @@ jobs:
         id: retrive-version
         run: |
           VERSION=$(node -p -e 'require("./package.json").version')
-          # echo "version=v${VERSION}" >> "$GITHUB_OUTPUT"
-          echo "version=v1.0.2" >> "$GITHUB_OUTPUT"
+          echo "version=v${VERSION}" >> "$GITHUB_OUTPUT"
       - name: Check release
         id: check-release
         run: |
@@ -54,6 +53,5 @@ jobs:
 
           MESSAGE="Release ${TAG}"
 
-          git tag -fa "${MAJOR}" -m "${MESSAGE}"
-          echo $MAJOR
-          # git push --force origin "${MAJOR}"
+          git tag -fa $MAJOR -m "${MESSAGE}"
+          git push --force origin $MAJOR
