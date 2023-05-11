@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Retrieve version
+        id: retrive-version
+        run: |
+          VERSION=$(node -p -e 'require("./package.json").version')
+          echo "version=v${VERSION}" >> "$GITHUB_OUTPUT"
+      - name: Check release
+        id: check-release
+        run: |
+          gh release view ${{ steps.retrive-version.outputs.version }} &> /tmp/gh_release_view.log && echo "release exists" || echo "not found or error"
+          cat /tmp/gh_release_view.log
+          RELEASE_EXIST=$(cat /tmp/gh_release_view.log | grep -q "release not found" && echo "false" || echo "true")
+          echo "exist=$RELEASE_EXIST" >> "$GITHUB_OUTPUT"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create tag
+        if: steps.check-release.outputs.exist == 'false'
+        run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
+          TAG=${{ steps.retrive-version.outputs.version }}
+          git tag $TAG
+          git push origin $TAG
+      - name: Create release
+        if: steps.check-release.outputs.exist == 'false'
+        run: |
+          gh release create ${{ steps.retrive-version.outputs.version }} --generate-notes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update major tag
+        if: steps.check-release.outputs.exist == 'false'
+        run: |
+          TAG=${{ steps.retrive-version.outputs.version }} # v1.2.3
+          MAJOR="${TAG%%.*}"                               # v1
+
+          MESSAGE="Release ${TAG}"
+
+          git tag -fa $MAJOR -m "${MESSAGE}"
+          git push --force origin $MAJOR
