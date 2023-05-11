@@ -6592,9 +6592,17 @@ exports.mapArch = mapArch;
 const specifyReleaseVersion = (version) => {
     const availableReleaseVersions = versions_json_1.default;
     core.debug(`available release versions: ${availableReleaseVersions.join(", ")}`);
-    // the default version is latest one.
     if (!version) {
-        return availableReleaseVersions[0];
+        // Select latest and no pre-release version as default.
+        const latestVersion = availableReleaseVersions.find((v) => {
+            // `-` is included in the version of pre-release.
+            // Ex.) "v4.3.0-1"
+            return !v.includes("-");
+        });
+        if (!latestVersion) {
+            throw new Error("latest version is not found");
+        }
+        return latestVersion;
     }
     if (!availableReleaseVersions.includes(version)) {
         throw new Error("invalid version is passed to setup-tfcmt action");
@@ -6841,7 +6849,7 @@ module.exports = require("util");
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('["v4.3.0","v4.3.0-1","v4.2.0","v4.2.0-2","v4.2.0-1","v4.1.0","v4.1.0-2","v4.0.1","v4.0.1-0","v4.0.0","v4.0.0-4","v3.4.2","v4.0.0-3","v3.4.1","v3.4.1-0","v4.0.0-2","v3.4.0","v3.4.0-1","v4.0.0-1","v3.3.0","v3.3.0-0","v4.0.0-0","v3.2.5","v3.2.5-0","v3.2.4","v3.2.3","v3.2.2","v3.2.2-0","v3.2.1","v3.2.0"]');
+module.exports = JSON.parse('["v4.4.0-1","v4.3.0","v4.3.0-1","v4.2.0","v4.2.0-2","v4.2.0-1","v4.1.0","v4.1.0-2","v4.0.1","v4.0.1-0","v4.0.0","v4.0.0-4","v3.4.2","v4.0.0-3","v3.4.1","v3.4.1-0","v4.0.0-2","v3.4.0","v3.4.0-1","v4.0.0-1","v3.3.0","v3.3.0-0","v4.0.0-0","v3.2.5","v3.2.5-0","v3.2.4","v3.2.3","v3.2.2","v3.2.2-0","v3.2.1"]');
 
 /***/ })
 
