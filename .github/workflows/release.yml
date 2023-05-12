@@ -42,16 +42,6 @@ jobs:
       - name: Create release
         if: steps.check-release.outputs.exist == 'false'
         run: |
-          gh release create ${{ steps.retrive-version.outputs.version }} --generate-notes
+          gh release create ${{ steps.retrive-version.outputs.version }} --generate-notes --draft
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Update major tag
-        if: steps.check-release.outputs.exist == 'false'
-        run: |
-          TAG=${{ steps.retrive-version.outputs.version }} # v1.2.3
-          MAJOR="${TAG%%.*}"                               # v1
-
-          MESSAGE="Release ${TAG}"
-
-          git tag -fa $MAJOR -m "${MESSAGE}"
-          git push --force origin $MAJOR
