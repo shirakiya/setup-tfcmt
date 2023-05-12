@@ -11,7 +11,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Write current release versions
         run: |
-          curl -s https://api.github.com/repos/suzuki-shunsuke/tfcmt/releases | jq "[.[].tag_name]" > ./src/versions.json
+          curl -s \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/suzuki-shunsuke/tfcmt/releases \
+          | jq "[.[].tag_name]" > ./src/versions.json
       # TODO(shirakiya): A pull-request should be created if diffs are exist in `versions.json`.
       - name: Check diff
         run: git --no-pager diff  --exit-code --ignore-space-at-eol ./src/versions.json
