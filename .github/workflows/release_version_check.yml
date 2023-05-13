@@ -13,7 +13,7 @@ jobs:
         run: |
           curl -s \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-            https://api.github.com/repos/suzuki-shunsuke/tfcmt/releases \
+            "https://api.github.com/repos/suzuki-shunsuke/tfcmt/releases?per_page=100" \
           | jq "[.[].tag_name]" > ./src/versions.json
       # TODO(shirakiya): A pull-request should be created if diffs are exist in `versions.json`.
       - name: Check diff
