@@ -15,6 +15,32 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/repos/suzuki-shunsuke/tfcmt/releases?per_page=100" \
           | jq "[.[].tag_name]" > ./src/versions.json
-      # TODO(shirakiya): A pull-request should be created if diffs are exist in `versions.json`.
       - name: Check diff
-        run: git --no-pager diff  --exit-code --ignore-space-at-eol ./src/versions.json
+        id: check_diff
+        run: |
+          if [ "$(git --no-pager diff --ignore-space-at-eol ./src/versions.json | wc -l)" -gt "0" ]; then
+            echo "Detected diff.  See status below:"
+            git --no-pager diff --ignore-space-at-eol ./src/versions.json
+            echo "is_exist=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_exist=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Create pull-request if new release versions are found
+        if: steps.check_diff.outputs.is_exist == 'true'
+        run: |
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          BRANCH="new_version_released_${{ github.run_id }}"
+          git switch -c $BRANCH
+
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+          git add ./src/versions.json
+          COMMIT_MESSAGE="update tfcmt versions list ${{ github.run_id }}"
+          git commit -m "$COMMIT_MESSAGE"
+          git push origin $BRANCH
+
+          gh pr create -B main -H $BRANCH -t "$COMMIT_MESSAGE" -b "This pull-request is created by GitHub Actions. Run $RUN_URL"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
