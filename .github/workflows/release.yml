@@ -16,6 +16,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - uses: tibdex/github-app-token@v1
+        id: generate_token
+        with:
+          app_id: ${{ secrets.TOKEN_GENERATOR_APP_ID }}
+          private_key: ${{ secrets.TOKEN_GENERATOR_APP_PRIVATE_KEY }}
       - name: Retrieve version
         id: retrive-version
         run: |
@@ -29,7 +34,7 @@ jobs:
           RELEASE_EXIST=$(cat /tmp/gh_release_view.log | grep -q "release not found" && echo "false" || echo "true")
           echo "exist=$RELEASE_EXIST" >> "$GITHUB_OUTPUT"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
       - name: Create tag
         if: steps.check-release.outputs.exist == 'false'
         run: |
@@ -39,9 +44,11 @@ jobs:
           TAG=${{ steps.retrive-version.outputs.version }}
           git tag $TAG
           git push origin $TAG
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
       - name: Create release
         if: steps.check-release.outputs.exist == 'false'
         run: |
           gh release create ${{ steps.retrive-version.outputs.version }} --generate-notes --draft
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}

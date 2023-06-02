@@ -13,6 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: tibdex/github-app-token@v1
+        id: generate_token
+        with:
+          app_id: ${{ secrets.TOKEN_GENERATOR_APP_ID }}
+          private_key: ${{ secrets.TOKEN_GENERATOR_APP_PRIVATE_KEY }}
       - name: Write current release versions
         run: |
           curl -s \
@@ -47,4 +52,4 @@ jobs:
 
           gh pr create -B main -H $BRANCH -t "$COMMIT_MESSAGE" -b "This pull-request is created by GitHub Actions. Run $RUN_URL"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
