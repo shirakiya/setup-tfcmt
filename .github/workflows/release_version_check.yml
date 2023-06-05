@@ -6,18 +6,17 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   release_version_check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: tibdex/github-app-token@v1
+      - uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92
         id: generate_token
         with:
-          app_id: ${{ secrets.TOKEN_GENERATOR_APP_ID }}
-          private_key: ${{ secrets.TOKEN_GENERATOR_APP_PRIVATE_KEY }}
+          app_id: ${{ secrets.GH_APP_ID }}
+          private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
       - name: Write current release versions
         run: |
           curl -s \
@@ -34,22 +33,27 @@ jobs:
           else
             echo "is_exist=false" >> $GITHUB_OUTPUT
           fi
-      - name: Create pull-request if new release versions are found
+      - name: Push if new release versions are found
+        id: push
         if: steps.check_diff.outputs.is_exist == 'true'
         run: |
-          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-
           BRANCH="new_version_released_${{ github.run_id }}"
           git switch -c $BRANCH
 
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add ./src/versions.json
           COMMIT_MESSAGE="update tfcmt versions list ${{ github.run_id }}"
           git commit -m "$COMMIT_MESSAGE"
           git push origin $BRANCH
 
-          gh pr create -B main -H $BRANCH -t "$COMMIT_MESSAGE" -b "This pull-request is created by GitHub Actions. Run $RUN_URL"
+          echo "branch=${BRANCH}" >> "$GITHUB_OUTPUT"
+          echo "commit_message=${COMMIT_MESSAGE}" >> "$GITHUB_OUTPUT"
+      - name: Create pull-request if new release versions are found
+        if: steps.check_diff.outputs.is_exist == 'true'
+        run: |
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          gh pr create -B main -H ${{ steps.push.outputs.branch }} -t "${{ steps.push.outputs.commit_message }}" -b "This pull-request is created by GitHub Actions. Run $RUN_URL"
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
