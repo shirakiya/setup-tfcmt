@@ -1,0 +1,22 @@
+name: tagpr
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tagpr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92
+        id: generate_token
+        with:
+          app_id: ${{ secrets.GH_APP_ID }}
+          private_key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+      - uses: Songmu/tagpr@v1
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
