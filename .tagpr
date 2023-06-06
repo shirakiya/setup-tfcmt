@@ -1,0 +1,6 @@
+[tagpr]
+	vPrefix = true
+	releaseBranch = main
+	release = true
+	changelog = true
+	versionFile = package.json
