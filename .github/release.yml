@@ -2,3 +2,16 @@ changelog:
   exclude:
     labels:
       - renovate
+      - tagpr
+      - maintenance
+  categories:
+    - title: Breaking Changes 🛠
+      labels:
+        - major
+    - title: New Features 🎉
+      labels:
+        - enhancement
+        - minor
+    - title: Other Changes
+      labels:
+        - "*"
