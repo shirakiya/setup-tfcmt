@@ -9,7 +9,7 @@ jobs:
   tagpr:
     runs-on: ubuntu-latest
     steps:
-      - uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92
+      - uses: tibdex/github-app-token@10e2a639a660a48a396fbb1d9fe34330b5c38368
         id: generate_token
         with:
           app_id: ${{ secrets.GH_APP_ID }}
