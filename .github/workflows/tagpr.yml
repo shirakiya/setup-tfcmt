@@ -9,7 +9,7 @@ jobs:
   tagpr:
     runs-on: ubuntu-latest
     steps:
-      - uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92
+      - uses: actions/create-github-app-token@49ce228ea7cddec9f88dd09c5b7740dbac82d7ba # v1.2.1
         id: generate_token
         with:
           app_id: ${{ secrets.GH_APP_ID }}
@@ -17,6 +17,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           token: ${{ steps.generate_token.outputs.token }}
-      - uses: Songmu/tagpr@v1
+      - uses: Songmu/tagpr@d73c022fee724bfaeed260ef5f509724c45dc980 # v1.1.2
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}

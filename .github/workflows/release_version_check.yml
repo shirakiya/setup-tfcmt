@@ -11,7 +11,7 @@ jobs:
   release_version_check:
     runs-on: ubuntu-latest
     steps:
-      - uses: tibdex/github-app-token@b62528385c34dbc9f38e5f4225ac829252d1ea92
+      - uses: actions/create-github-app-token@49ce228ea7cddec9f88dd09c5b7740dbac82d7ba # v1.2.1
         id: generate_token
         with:
           app_id: ${{ secrets.GH_APP_ID }}
