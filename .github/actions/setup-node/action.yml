@@ -4,7 +4,7 @@ inputs:
   node-version:
     description: The version of Node.js to be setup
     required: false
-    default: 16
+    default: 20
 runs:
   using: composite
   steps:
