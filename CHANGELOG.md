@@ -1,5 +1,14 @@
 # Changelog
 
+## [v2.1.0](https://github.com/shirakiya/setup-tfcmt/compare/v2...v2.1.0) - 2024-02-04
+### New Features 🎉
+- update latest tfcmt version to v4.7.2 by @shirakiya-github-apps-token-issuer in https://github.com/shirakiya/setup-tfcmt/pull/198
+- update latest tfcmt version to v4.7.3 by @shirakiya-github-apps-token-issuer in https://github.com/shirakiya/setup-tfcmt/pull/206
+- update latest tfcmt version to v4.8.0 by @shirakiya-github-apps-token-issuer in https://github.com/shirakiya/setup-tfcmt/pull/208
+- update latest tfcmt version to v4.9.0 by @shirakiya-github-apps-token-issuer in https://github.com/shirakiya/setup-tfcmt/pull/245
+### Other Changes
+- update latest tfcmt version to v4.9.0-2 by @shirakiya-github-apps-token-issuer in https://github.com/shirakiya/setup-tfcmt/pull/233
+
 ## [v2.0.0](https://github.com/shirakiya/setup-tfcmt/compare/v1.4.0...v2.0.0) - 2023-11-08
 ### Breaking Changes 🛠
 - update Node.js to v20 as runtime in action and development by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/169
