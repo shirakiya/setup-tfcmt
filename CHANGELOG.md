@@ -1,5 +1,9 @@
 # Changelog
 
+## [v2.1.1](https://github.com/shirakiya/setup-tfcmt/compare/v2.1.0...v2.1.1) - 2024-05-14
+### Other Changes
+- use prefered parameters for actions/create-github-app-token by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/299
+
 ## [v2.1.0](https://github.com/shirakiya/setup-tfcmt/compare/v2...v2.1.0) - 2024-02-04
 ### New Features 🎉
 - update latest tfcmt version to v4.7.2 by @shirakiya-github-apps-token-issuer in https://github.com/shirakiya/setup-tfcmt/pull/198
