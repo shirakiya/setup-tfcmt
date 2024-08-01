@@ -46,4 +46,12 @@ module.exports = {
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
   },
+  overrides: [
+    {
+      files: ["*.json"],
+      rules: {
+        "@typescript-eslint/no-unused-expressions": "off",
+      },
+    },
+  ],
 }
