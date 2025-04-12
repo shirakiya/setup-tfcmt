@@ -1,5 +1,9 @@
 # Changelog
 
+## [v2.5.3](https://github.com/shirakiya/setup-tfcmt/compare/v2.5.2...v2.5.3) - 2025-04-12
+### Other Changes
+- update latest tfcmt version to v4.14.3 by @shirakiya-github-apps-token-issuer in https://github.com/shirakiya/setup-tfcmt/pull/516
+
 ## [v2.5.2](https://github.com/shirakiya/setup-tfcmt/compare/v2.5.1...v2.5.2) - 2025-02-06
 ### Other Changes
 - update latest tfcmt version to v4.14.2 by @shirakiya-github-apps-token-issuer in https://github.com/shirakiya/setup-tfcmt/pull/461
