@@ -70,7 +70,7 @@ describe("mapArch", () => {
 describe("specifyReleaseVersion", () => {
   test("select latest one if passed version is empty", () => {
     const got = specifyReleaseVersion("")
-    expect(got).toStrictEqual("v4.14.4")
+    expect(got).toStrictEqual("v4.14.5")
   })
 
   test("select a matched version if passed version is specified", () => {
