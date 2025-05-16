@@ -25,7 +25,7 @@
     "url": "https://github.com/shirakiya/setup-tfcmt/issues"
   },
   "engines": {
-    "node": "20.19.1"
+    "node": "20.19.2"
   },
   "dependencies": {
     "@actions/core": "1.11.1",
