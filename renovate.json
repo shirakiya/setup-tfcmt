@@ -3,7 +3,9 @@
   "extends": [
     "config:base"
   ],
-  "labels": ["renovate"],
+  "automerge": true,
+  "automergeStrategy": "squash",
+  "addLabels": ["renovate"],
   "prHourlyLimit": 0,
   "rangeStrategy": "pin"
 }
