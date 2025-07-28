@@ -1,8 +1,4 @@
 # setup-tfcmt
-
-> [!WARNING]
-> This repository has been archived as its maintenance has been handed over to the organization the author is belongs to.
-
 This [shirakiya/setup-tfcmt](https://github.com/shirakiya/setup-tfcmt) action is a JavaScript action on GitHub Actions
 that sets up [suzuki-shunsuke/tfcmt](https://github.com/suzuki-shunsuke/tfcmt) command in your GitHub Actions workflow.
 
