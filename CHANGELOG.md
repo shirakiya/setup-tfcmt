@@ -1,5 +1,7 @@
 # Changelog
 
+## [v2.5.11](https://github.com/shirakiya/setup-tfcmt/compare/v2.5.10...v2.5.11) - 2025-08-09
+
 ## [v2.5.10](https://github.com/shirakiya/setup-tfcmt/compare/v2.5.9...v2.5.10) - 2025-07-31
 ### Other Changes
 - remove the warning message about Repository archived by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/608
