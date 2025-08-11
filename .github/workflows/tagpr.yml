@@ -14,7 +14,7 @@ jobs:
         with:
           app-id: ${{ secrets.GH_APP_ID }}
           private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           token: ${{ steps.generate_token.outputs.token }}
       - uses: Songmu/tagpr@ebb5da0cccdb47c533d4b520ebc0acd475b16614 # v1.7.0
