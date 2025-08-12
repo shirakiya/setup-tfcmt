@@ -1,5 +1,7 @@
 # Changelog
 
+## [v3.0.1](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.0...v3.0.1) - 2025-08-12
+
 ## [v3.0.0](https://github.com/shirakiya/setup-tfcmt/compare/v2.5.10...v3.0.0) - 2025-08-11
 ### Breaking Changes 🛠
 - update runtime to node24 by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/616
