@@ -1,5 +1,9 @@
 # Changelog
 
+## [v3.0.1](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.0...v3.0.1) - 2025-08-19
+### Other Changes
+- update latest tfcmt version to v4.14.10 by @shirakiya-github-apps-token-issuer[bot] in https://github.com/shirakiya/setup-tfcmt/pull/622
+
 ## [v3.0.0](https://github.com/shirakiya/setup-tfcmt/compare/v2.5.10...v3.0.0) - 2025-08-11
 ### Breaking Changes 🛠
 - update runtime to node24 by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/616
