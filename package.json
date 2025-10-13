@@ -34,8 +34,8 @@
   "devDependencies": {
     "@types/jest": "30.0.0",
     "@types/node": "24.7.2",
-    "@typescript-eslint/eslint-plugin": "8.46.0",
-    "@typescript-eslint/parser": "8.46.0",
+    "@typescript-eslint/eslint-plugin": "8.46.1",
+    "@typescript-eslint/parser": "8.46.1",
     "@vercel/ncc": "0.38.4",
     "eslint": "8.57.1",
     "eslint-config-prettier": "10.1.8",
