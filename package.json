@@ -1,6 +1,6 @@
 {
   "name": "setup-tfcmt",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "private": true,
   "description": "Set up specific version of tfcmt in your GitHub Actions workflow.",
   "main": "dist/setup/index.js",
