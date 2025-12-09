@@ -1,5 +1,16 @@
 # Changelog
 
+## [v3.0.4](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.3...v3.0.4) - 2025-12-09
+### Other Changes
+- add workflow to automate updates for new tfcmt versions by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/689
+- enable workflow_dispatch trigger for Release version check workflow by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/690
+- fix trigger condition #689 by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/692
+- fix sed replacement by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/693
+- exit if new tfcmt version PR has already updated by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/694
+- add idempotency checks to update workflow by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/695
+- update latest tfcmt version to v4.14.13 by @shirakiya-github-apps-token-issuer[bot] in https://github.com/shirakiya/setup-tfcmt/pull/684
+- cache by actions/setup-node v6 by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/696
+
 ## [v3.0.3](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.2...v3.0.3) - 2025-09-22
 ### Other Changes
 - update latest tfcmt version to v4.14.12 by @shirakiya-github-apps-token-issuer[bot] in https://github.com/shirakiya/setup-tfcmt/pull/652
