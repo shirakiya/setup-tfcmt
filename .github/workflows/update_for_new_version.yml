@@ -30,20 +30,38 @@ jobs:
           echo "newVersion=$newVersion" >> $GITHUB_OUTPUT
           echo "prevVersion=$prevVersion" >> $GITHUB_OUTPUT
       - name: Check already updated
+        id: check-test-expectation-updated
         run: |
           if grep -q "${{ steps.versions.outputs.newVersion }}" src/setup.test.ts; then
             echo "Already updated to version ${{ steps.versions.outputs.newVersion }}"
-            exit 0
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
           fi
       - name: Update test expectation
+        if: steps.check-test-expectation-updated.outputs.skip != 'true'
         run: sed -i "s/${{ steps.versions.outputs.prevVersion }}/${{ steps.versions.outputs.newVersion }}/g" src/setup.test.ts
       - run: npm run test
+        if: steps.check-test-expectation-updated.outputs.skip != 'true'
       - name: Commit updated test expectation
+        if: steps.check-test-expectation-updated.outputs.skip != 'true'
         run: git commit -am "Update test expectation for new version"
       - run: npm run package
+      - name: Check if package updated
+        id: check-package-updated
+        run: |
+          if git diff --quiet; then
+            echo "No package changes detected"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "Package changes detected"
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
       - name: Commit updated package
+        if: steps.check-package-updated.outputs.skip != 'true'
         run: git commit -am "Update package for new version"
       - name: Push changes
+        if: steps.check-test-expectation-updated.outputs.skip != 'true' || steps.check-package-updated.outputs.skip != 'true'
         run: |
           git remote set-url origin https://x-access-token:${{ steps.generate-token.outputs.token }}@github.com/${{ github.repository }}.git
           git push origin HEAD:${{ github.head_ref }}
