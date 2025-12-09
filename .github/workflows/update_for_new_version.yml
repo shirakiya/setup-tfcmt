@@ -29,6 +29,12 @@ jobs:
           prevVersion=$(jq -r '.[1]' src/versions.json)
           echo "newVersion=$newVersion" >> $GITHUB_OUTPUT
           echo "prevVersion=$prevVersion" >> $GITHUB_OUTPUT
+      - name: Check already updated
+        run: |
+          if grep -q "${{ steps.versions.outputs.newVersion }}" src/setup.test.ts; then
+            echo "Already updated to version ${{ steps.versions.outputs.newVersion }}"
+            exit 0
+          fi
       - name: Update test expectation
         run: sed -i "s/${{ steps.versions.outputs.prevVersion }}/${{ steps.versions.outputs.newVersion }}/g" src/setup.test.ts
       - run: npm run test
