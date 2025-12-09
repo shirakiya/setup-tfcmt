@@ -1,14 +1,12 @@
 name: Update for new tfcmt version
 
-on:
-  pull_request:
-    branches:
-      - new_version_released_*
+on: pull_request
 
 jobs:
   update:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    if: startsWith(github.head_ref, 'new_version_released_')
     steps:
       - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
         id: generate-token
