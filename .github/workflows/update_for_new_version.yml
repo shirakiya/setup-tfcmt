@@ -30,7 +30,7 @@ jobs:
           echo "newVersion=$newVersion" >> $GITHUB_OUTPUT
           echo "prevVersion=$prevVersion" >> $GITHUB_OUTPUT
       - name: Update test expectation
-        run: sed -i "s/${{ steps.versions.outputs.newVersion }}/${{ steps.versions.outputs.prevVersion }}/g" src/setup.test.ts
+        run: sed -i "s/${{ steps.versions.outputs.prevVersion }}/${{ steps.versions.outputs.newVersion }}/g" src/setup.test.ts
       - run: npm run test
       - name: Commit updated test expectation
         run: git commit -am "Update test expectation for new version"
