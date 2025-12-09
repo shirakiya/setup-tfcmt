@@ -13,13 +13,13 @@ See [action.yml](action.yml)
 The default configuration installs the latest version of tfcmt binary.
 
 ```yaml
-- uses: shirakiya/setup-tfcmt@v1
+- uses: shirakiya/setup-tfcmt@v3
 ```
 
 A specific version of tfcmt can be installed:
 
 ```yaml
-- uses: shirakiya/setup-tfcmt@v1
+- uses: shirakiya/setup-tfcmt@v3
   with:
     # Version Spec of to use. See tfcmt releases
     # https://github.com/suzuki-shunsuke/tfcmt/releases
