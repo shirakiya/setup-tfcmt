@@ -1,0 +1,45 @@
+name: Update for new tfcmt version
+
+on:
+  pull_request:
+    branches:
+      - new_version_released_*
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+        id: generate-token
+        with:
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.head_ref }}
+          persist-credentials: false
+      - uses: ./.github/actions/setup-node
+      - name: Setup Git
+        run: |
+          git config user.name "github-actions"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Get new and previous versions
+        id: versions
+        run: |
+          newVersion=$(jq -r '.[0]' src/versions.json)
+          prevVersion=$(jq -r '.[1]' src/versions.json)
+          echo "newVersion=$newVersion" >> $GITHUB_OUTPUT
+          echo "prevVersion=$prevVersion" >> $GITHUB_OUTPUT
+      - name: Update test expectation
+        run: sed -i "s/${{ steps.versions.outputs.newVersion }}/${{ steps.versions.outputs.prevVersion }}/g" src/setup.test.ts
+      - run: npm run test
+      - name: Commit updated test expectation
+        run: git commit -am "Update test expectation for new version"
+      - run: npm run package
+      - name: Commit updated package
+        run: git commit -am "Update package for new version"
+      - name: Push changes
+        run: |
+          git remote set-url origin https://x-access-token:${{ steps.generate-token.outputs.token }}@github.com/${{ github.repository }}.git
+          git push origin HEAD:${{ github.head_ref }}
