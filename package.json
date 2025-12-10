@@ -27,7 +27,7 @@
   "engines": {
     "node": "24.11.1"
   },
-  "packageManager": "npm@11.6.4",
+  "packageManager": "npm@11.7.0",
   "dependencies": {
     "@actions/core": "2.0.0",
     "@actions/tool-cache": "2.0.2"
