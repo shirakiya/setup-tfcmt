@@ -29,7 +29,7 @@
   },
   "packageManager": "npm@11.7.0",
   "dependencies": {
-    "@actions/core": "2.0.0",
+    "@actions/core": "2.0.1",
     "@actions/tool-cache": "2.0.2"
   },
   "devDependencies": {
