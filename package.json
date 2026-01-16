@@ -30,7 +30,7 @@
   "packageManager": "npm@11.7.0",
   "dependencies": {
     "@actions/core": "2.0.2",
-    "@actions/tool-cache": "2.0.2"
+    "@actions/tool-cache": "3.0.0"
   },
   "devDependencies": {
     "@types/jest": "30.0.0",
