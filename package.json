@@ -10,7 +10,8 @@
     "format:check": "prettier --check '**/*.{js,ts}'",
     "lint": "eslint src/**/*",
     "package": "ncc build src/setup_entrypoint.ts --out dist/setup",
-    "test": "jest"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "repository": {
     "type": "git",
@@ -33,7 +34,6 @@
     "@actions/tool-cache": "3.0.0"
   },
   "devDependencies": {
-    "@types/jest": "30.0.0",
     "@types/node": "24.10.9",
     "@typescript-eslint/eslint-plugin": "8.54.0",
     "@typescript-eslint/parser": "8.54.0",
@@ -42,9 +42,8 @@
     "eslint-config-prettier": "10.1.8",
     "eslint-import-resolver-typescript": "4.4.4",
     "eslint-plugin-import": "2.32.0",
-    "jest": "30.2.0",
     "prettier": "3.8.1",
-    "ts-jest": "29.4.6",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "4.0.17"
   }
 }
