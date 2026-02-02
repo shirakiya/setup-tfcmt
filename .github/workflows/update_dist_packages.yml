@@ -49,7 +49,7 @@ jobs:
       - name: Check if dist packages updated
         id: check-package-updated
         run: |
-          if git diff --quiet; then
+          if git diff --quiet dist/; then
             echo "no dist package changes detected"
             echo "skip=true" >> $GITHUB_OUTPUT
           else
@@ -58,7 +58,9 @@ jobs:
           fi
       - name: Commit updated dist packages
         if: steps.check-package-updated.outputs.skip != 'true'
-        run: git commit -am "Update dist packages"
+        run: |
+          git add dist/
+          git commit -m "Update dist packages"
       - name: Push changes
         if: steps.check-test-expectation-updated.outputs.skip != 'true' || steps.check-package-updated.outputs.skip != 'true'
         run: |
