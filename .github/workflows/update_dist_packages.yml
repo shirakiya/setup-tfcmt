@@ -1,4 +1,4 @@
-name: Update for new tfcmt version
+name: Update dist packages
 
 on: pull_request
 
@@ -6,7 +6,6 @@ jobs:
   update:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    if: startsWith(github.head_ref, 'new_version_released_')
     steps:
       - uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
         id: generate-token
@@ -47,19 +46,19 @@ jobs:
         if: steps.check-test-expectation-updated.outputs.skip != 'true'
         run: git commit -am "Update test expectation for new version"
       - run: npm run package
-      - name: Check if package updated
+      - name: Check if dist packages updated
         id: check-package-updated
         run: |
           if git diff --quiet; then
-            echo "No package changes detected"
+            echo "no dist package changes detected"
             echo "skip=true" >> $GITHUB_OUTPUT
           else
-            echo "Package changes detected"
+            echo "dist package changes detected"
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
-      - name: Commit updated package
+      - name: Commit updated dist packages
         if: steps.check-package-updated.outputs.skip != 'true'
-        run: git commit -am "Update package for new version"
+        run: git commit -am "Update dist packages"
       - name: Push changes
         if: steps.check-test-expectation-updated.outputs.skip != 'true' || steps.check-package-updated.outputs.skip != 'true'
         run: |
