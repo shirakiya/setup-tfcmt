@@ -9,7 +9,7 @@
     "format": "prettier --write '**/*.{js,ts}'",
     "format:check": "prettier --check '**/*.{js,ts}'",
     "lint": "eslint src/**/*",
-    "package": "ncc build src/setup_entrypoint.ts --out dist/setup",
+    "package": "esbuild src/setup_entrypoint.ts --bundle --platform=node --target=node24 --outfile=dist/setup/index.js --format=cjs",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -37,7 +37,7 @@
     "@types/node": "24.10.9",
     "@typescript-eslint/eslint-plugin": "8.54.0",
     "@typescript-eslint/parser": "8.54.0",
-    "@vercel/ncc": "0.38.4",
+    "esbuild": "0.27.2",
     "eslint": "8.57.1",
     "eslint-config-prettier": "10.1.8",
     "eslint-import-resolver-typescript": "4.4.4",
