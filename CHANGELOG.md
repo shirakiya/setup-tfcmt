@@ -1,5 +1,11 @@
 # Changelog
 
+## [v3.0.6](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.5...v3.0.6) - 2026-02-02
+### Other Changes
+- Migrate test framework from jest to vitest by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/729
+- update workflow to commit dist packages for all pull-request by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/731
+- Migrate build tool from ncc to esbuild by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/732
+
 ## [v3.0.5](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.4...v3.0.5) - 2026-01-16
 ### Other Changes
 - update the example version of this action itself in README by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/699
