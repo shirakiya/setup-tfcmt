@@ -17,6 +17,6 @@ jobs:
       - uses: actions/checkout@v6
         with:
           token: ${{ steps.generate_token.outputs.token }}
-      - uses: Songmu/tagpr@78a926ba835e34721053309043aee696ba9c70b1 # v1.15.0
+      - uses: Songmu/tagpr@9af562703466442d4256712a000108ff7c3547f1 # v1.16.0
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
