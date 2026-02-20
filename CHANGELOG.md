@@ -1,5 +1,11 @@
 # Changelog
 
+## [v3.0.7](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.6...v3.0.7) - 2026-02-20
+### Other Changes
+- upgrade eslint to v9 by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/733
+- fix warning for tseslint.config() by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/735
+- update latest tfcmt version to v4.14.15 by @shirakiya-github-apps-token-issuer[bot] in https://github.com/shirakiya/setup-tfcmt/pull/749
+
 ## [v3.0.6](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.5...v3.0.6) - 2026-02-02
 ### Other Changes
 - Migrate test framework from jest to vitest by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/729
