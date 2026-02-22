@@ -1,5 +1,7 @@
 # Changelog
 
+## [v3.0.8](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.7...v3.0.8) - 2026-02-22
+
 ## [v3.0.7](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.6...v3.0.7) - 2026-02-20
 ### Other Changes
 - upgrade eslint to v9 by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/733
