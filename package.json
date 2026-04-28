@@ -5,7 +5,7 @@
   "description": "Set up specific version of tfcmt in your GitHub Actions workflow.",
   "main": "dist/setup/index.js",
   "scripts": {
-    "build": "tsc",
+    "typecheck": "tsc --noEmit",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "package": "esbuild src/setup_entrypoint.ts --bundle --platform=node --target=node24 --outfile=dist/setup/index.js --format=cjs",
