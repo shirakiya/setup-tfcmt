@@ -20443,8 +20443,8 @@ var require_semver2 = __commonJS({
 });
 
 // src/setup_entrypoint.ts
+var import_node_os = __toESM(require("node:os"));
 var path6 = __toESM(require("node:path"));
-var import_os3 = __toESM(require("os"));
 
 // node_modules/@actions/core/lib/command.js
 var os = __toESM(require("os"), 1);
@@ -22889,8 +22889,8 @@ var download = async (inputVersion, osPlatform, osArch) => {
 var run = async () => {
   const inputVersion = getInput("version");
   debug(`inputVersion: ${inputVersion}`);
-  const osPlatform = import_os3.default.platform();
-  const osArch = import_os3.default.arch();
+  const osPlatform = import_node_os.default.platform();
+  const osArch = import_node_os.default.arch();
   debug(`osPlatform: ${osPlatform}`);
   debug(`osArch: ${osArch}`);
   const result = await download(inputVersion, osPlatform, osArch);

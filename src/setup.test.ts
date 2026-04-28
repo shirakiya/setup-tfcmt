@@ -1,9 +1,9 @@
 import { describe, expect, test } from "vitest"
 
 import {
-  mapPlatform,
-  mapArch,
   getBuildURL,
+  mapArch,
+  mapPlatform,
   specifyReleaseVersion,
 } from "./setup"
 
