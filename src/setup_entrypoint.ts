@@ -1,6 +1,5 @@
+import os from "node:os"
 import * as path from "node:path"
-import os from "os"
-
 import * as core from "@actions/core"
 
 import { CMD_NAME, download } from "./setup"

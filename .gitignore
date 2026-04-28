@@ -14,6 +14,3 @@ typings/
 
 # TypeScript cache
 *.tsbuildinfo
-
-# Optional eslint cache
-.eslintcache

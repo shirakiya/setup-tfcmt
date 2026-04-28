@@ -6,9 +6,8 @@
   "main": "dist/setup/index.js",
   "scripts": {
     "build": "tsc",
-    "format": "prettier --write '**/*.{js,ts}'",
-    "format:check": "prettier --check '**/*.{js,ts}'",
-    "lint": "eslint src/**/*",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
     "package": "esbuild src/setup_entrypoint.ts --bundle --platform=node --target=node24 --outfile=dist/setup/index.js --format=cjs",
     "test": "vitest run",
     "test:watch": "vitest"
@@ -34,14 +33,9 @@
     "@actions/tool-cache": "4.0.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.4.13",
     "@types/node": "24.12.2",
     "esbuild": "0.28.0",
-    "eslint": "9.39.4",
-    "eslint-config-prettier": "10.1.8",
-    "eslint-import-resolver-typescript": "4.4.4",
-    "eslint-plugin-import": "2.32.0",
-    "typescript-eslint": "8.59.1",
-    "prettier": "3.8.3",
     "typescript": "6.0.3",
     "vitest": "4.1.5"
   }
