@@ -10,3 +10,5 @@ jobs:
       - uses: ./.github/actions/setup-node
       - name: Check lint and format
         run: npm run lint
+      - name: Check types
+        run: npm run typecheck
