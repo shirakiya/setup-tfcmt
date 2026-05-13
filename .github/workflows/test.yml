@@ -30,7 +30,7 @@ jobs:
           tfcmt --version
 
   action-test-windows:
-    runs-on: windows-latest
+    runs-on: windows-2025-vs2026
     steps:
       - uses: actions/checkout@v6.0.2
       - uses: ./
