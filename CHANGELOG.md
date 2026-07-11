@@ -1,6 +1,7 @@
 # Changelog
 
 ## [v3.0.9](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.8...v3.0.9) - 2026-07-11
+Update dependencies
 
 ## [v3.0.8](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.7...v3.0.8) - 2026-04-28
 ### Other Changes
