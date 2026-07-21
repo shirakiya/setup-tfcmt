@@ -1,5 +1,10 @@
 # Changelog
 
+## [v3.0.10](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.9...v3.0.10) - 2026-07-21
+
+### Other Changes
+- Pin GitHub Actions dependencies to commit SHAs by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/842
+
 ## [v3.0.9](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.8...v3.0.9) - 2026-07-11
 Update dependencies
 
