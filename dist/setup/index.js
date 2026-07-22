@@ -22715,6 +22715,9 @@ function _getGlobal(key, defaultValue) {
 
 // src/versions.json
 var versions_default = [
+  "v4.14.17",
+  "v4.14.16",
+  "v4.14.16-0",
   "v4.14.15",
   "v4.14.14",
   "v4.14.13",
@@ -22811,10 +22814,7 @@ var versions_default = [
   "v2.0.2",
   "v2.0.2-0",
   "v2.0.1",
-  "v2.0.1-0",
-  "v2.0.0",
-  "v2.0.0-0",
-  "v1.1.0"
+  "v2.0.1-0"
 ];
 
 // src/setup.ts
