@@ -1,5 +1,7 @@
 # Changelog
 
+## [v3.0.14](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.13...v3.0.14) - 2026-09-10
+
 ## [v3.0.13](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.12...v3.0.13) - 2026-09-04
 
 ### Other Changes
