@@ -33,7 +33,7 @@
     "@actions/tool-cache": "4.0.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.14",
+    "@biomejs/biome": "2.5.15",
     "@types/node": "24.19.0",
     "esbuild": "0.28.2",
     "typescript": "7.0.2",
