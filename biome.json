@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!dist", "!**/dist"]
+    "includes": ["**", "!dist", "!**/dist", "!CHANGELOG.md"]
   },
   "formatter": {
     "enabled": true,
