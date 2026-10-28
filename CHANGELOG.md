@@ -1,5 +1,15 @@
 # Changelog
 
+## [v3.0.14](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.13...v3.0.14) - 2026-10-28
+
+### Other Changes
+- Fix dist updates by decoupling tests from release versions by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/894
+- update latest tfcmt version to v4.14.20 by @shirakiya-github-apps-token-issuer[bot] in https://github.com/shirakiya/setup-tfcmt/pull/893
+- Fix template injection in GitHub Actions workflows by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/895
+- Set explicit permissions for all workflows and jobs by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/896
+- Set explicit permissions for actions/create-github-app-token by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/897
+- Disable checkout credential persistence in workflows by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/898
+
 ## [v3.0.13](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.12...v3.0.13) - 2026-09-04
 
 ### Other Changes
