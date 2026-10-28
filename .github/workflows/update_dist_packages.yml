@@ -21,30 +21,7 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      - name: Get new and previous versions
-        id: versions
-        run: |
-          newVersion=$(jq -r '.[0]' src/versions.json)
-          prevVersion=$(jq -r '.[1]' src/versions.json)
-          echo "newVersion=$newVersion" >> $GITHUB_OUTPUT
-          echo "prevVersion=$prevVersion" >> $GITHUB_OUTPUT
-      - name: Check already updated
-        id: check-test-expectation-updated
-        run: |
-          if grep -q "${{ steps.versions.outputs.newVersion }}" src/setup.test.ts; then
-            echo "Already updated to version ${{ steps.versions.outputs.newVersion }}"
-            echo "skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "skip=false" >> $GITHUB_OUTPUT
-          fi
-      - name: Update test expectation
-        if: steps.check-test-expectation-updated.outputs.skip != 'true'
-        run: sed -i "s/${{ steps.versions.outputs.prevVersion }}/${{ steps.versions.outputs.newVersion }}/g" src/setup.test.ts
       - run: npm run test
-        if: steps.check-test-expectation-updated.outputs.skip != 'true'
-      - name: Commit updated test expectation
-        if: steps.check-test-expectation-updated.outputs.skip != 'true'
-        run: git commit -am "Update test expectation for new version"
       - run: npm run package
       - name: Check if dist packages updated
         id: check-package-updated
@@ -62,7 +39,7 @@ jobs:
           git add dist/
           git commit -m "Update dist packages"
       - name: Push changes
-        if: steps.check-test-expectation-updated.outputs.skip != 'true' || steps.check-package-updated.outputs.skip != 'true'
+        if: steps.check-package-updated.outputs.skip != 'true'
         run: |
           git remote set-url origin https://x-access-token:${{ steps.generate-token.outputs.token }}@github.com/${{ github.repository }}.git
           git push origin HEAD:${{ github.head_ref }}

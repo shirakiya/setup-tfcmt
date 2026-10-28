@@ -1,4 +1,4 @@
-import { describe, expect, test } from "vitest"
+import { beforeEach, describe, expect, test, vi } from "vitest"
 
 import {
   getBuildURL,
@@ -6,6 +6,10 @@ import {
   mapPlatform,
   specifyReleaseVersion,
 } from "./setup"
+
+const versions = vi.hoisted(() => [] as string[])
+
+vi.mock("./versions.json", () => ({ default: versions }))
 
 describe("mapPlatform", () => {
   const tt: {
@@ -70,9 +74,36 @@ describe("mapArch", () => {
 })
 
 describe("specifyReleaseVersion", () => {
+  beforeEach(() => {
+    versions.splice(0, versions.length, "v4.3.0", "v4.3.0-1", "v4.2.0")
+  })
+
   test("select latest one if passed version is empty", () => {
     const got = specifyReleaseVersion("")
-    expect(got).toStrictEqual("v4.14.19")
+    expect(got).toStrictEqual("v4.3.0")
+  })
+
+  test("skips pre-releases when selecting the latest version", () => {
+    versions.unshift("v4.4.0-1", "v4.4.0-0")
+    expect(specifyReleaseVersion("")).toBe("v4.3.0")
+  })
+
+  test("selects a pre-release when explicitly specified", () => {
+    expect(specifyReleaseVersion("v4.3.0-1")).toBe("v4.3.0-1")
+  })
+
+  test("throws if no stable release is available", () => {
+    versions.splice(0, versions.length, "v4.4.0-1")
+    expect(() => specifyReleaseVersion("")).toThrow(
+      "latest version is not found",
+    )
+  })
+
+  test("throws if no releases are available", () => {
+    versions.splice(0)
+    expect(() => specifyReleaseVersion("")).toThrow(
+      "latest version is not found",
+    )
   })
 
   test("select a matched version if passed version is specified", () => {
