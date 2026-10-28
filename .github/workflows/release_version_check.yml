@@ -52,16 +52,20 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add ./src/versions.json
-          COMMIT_MESSAGE="update latest tfcmt version to ${{ steps.extract_latest_version.outputs.version }}"
+          COMMIT_MESSAGE="update latest tfcmt version to ${LATEST_VERSION}"
           git commit -m "$COMMIT_MESSAGE"
           git push origin $BRANCH
 
           echo "branch=${BRANCH}" >> "$GITHUB_OUTPUT"
           echo "commit_message=${COMMIT_MESSAGE}" >> "$GITHUB_OUTPUT"
+        env:
+          LATEST_VERSION: ${{ steps.extract_latest_version.outputs.version }}
       - name: Create pull-request if new release versions are found
         if: steps.check_diff.outputs.is_exist == 'true'
         run: |
           RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          gh pr create -B main -H ${{ steps.push.outputs.branch }} -t "${{ steps.push.outputs.commit_message }}" -b "This pull-request is created by GitHub Actions. Run $RUN_URL"
+          gh pr create -B main -H "$BRANCH" -t "$COMMIT_MESSAGE" -b "This pull-request is created by GitHub Actions. Run $RUN_URL"
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          BRANCH: ${{ steps.push.outputs.branch }}
+          COMMIT_MESSAGE: ${{ steps.push.outputs.commit_message }}
