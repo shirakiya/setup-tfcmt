@@ -21,7 +21,13 @@ jobs:
           permission-issues: read
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
           token: ${{ steps.generate_token.outputs.token }}
+      - name: Configure Git credential helper for tagpr
+        # Checkout does not persist credentials, so tagpr's Git operations need a credential helper.
+        # Configure Git to use gh, which reads GITHUB_TOKEN from the tagpr step's environment.
+        # --hostname selects github.com; --force allows setup without credentials in this step.
+        run: gh auth setup-git --hostname github.com --force
       - uses: Songmu/tagpr@e1250d6c84e4425db82b5e90549d62dfe23e9ebe # v1.21.4
         env:
           GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
