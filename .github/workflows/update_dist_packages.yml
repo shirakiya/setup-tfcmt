@@ -41,5 +41,8 @@ jobs:
       - name: Push changes
         if: steps.check-package-updated.outputs.skip != 'true'
         run: |
-          git remote set-url origin https://x-access-token:${{ steps.generate-token.outputs.token }}@github.com/${{ github.repository }}.git
-          git push origin HEAD:${{ github.head_ref }}
+          git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push origin "HEAD:${HEAD_REF}"
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+          HEAD_REF: ${{ github.head_ref }}
