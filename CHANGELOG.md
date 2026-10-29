@@ -1,5 +1,10 @@
 # Changelog
 
+## [v3.0.15](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.14...v3.0.15) - 2026-10-29
+
+### Other Changes
+- Use GH_APP_CLIENT_ID for GitHub App authentication by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/899
+
 ## [v3.0.14](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.13...v3.0.14) - 2026-10-28
 
 ### Other Changes
