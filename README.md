@@ -6,7 +6,6 @@ that sets up [suzuki-shunsuke/tfcmt](https://github.com/suzuki-shunsuke/tfcmt) c
 - Downloading a specific version of tfcmt and adding it to the PATH.
 - Can be run on `ubuntu-latest`, `windows-latest`, `macos-latest` GitHub Actions runner.
 
-
 ## Usage
 
 See [action.yml](action.yml)
@@ -34,16 +33,13 @@ The action supports the following inputs:
 - `version`: (optional) The version of tfcmt to install. Examples are `v4.3.0`, `v4.2.0`.
   All of available versions can be refered from tfcmt releases. https://github.com/suzuki-shunsuke/tfcmt/releases
 
-
 ## Outputs
 
 None. This action does not output any values.
 
-
 ## LICENCE
 
 The scripts and documentation in this project are released under the [MIT License](LICENSE)
-
 
 ## Acknowledgments
 
