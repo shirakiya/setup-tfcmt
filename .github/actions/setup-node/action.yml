@@ -7,7 +7,7 @@ runs:
     - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
       with:
         node-version-file: package.json
+        cache: npm
         cache-dependency-path: package-lock.json
-        package-manager-cache: true
     - run: npm install
       shell: bash
