@@ -1,5 +1,10 @@
 # Changelog
 
+## [v3.0.16](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.15...v3.0.16) - 2026-11-25
+
+### Other Changes
+- Use bundled npm by removing packageManager from package.json by @shirakiya in https://github.com/shirakiya/setup-tfcmt/pull/919
+
 ## [v3.0.15](https://github.com/shirakiya/setup-tfcmt/compare/v3.0.14...v3.0.15) - 2026-11-17
 
 ### Other Changes
